@@ -1,5 +1,7 @@
 # bazz
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lirantal/bazz.svg)](https://greenkeeper.io/)
+
 📬 effortless remote push notifications for the CLI
 
 # Installation
