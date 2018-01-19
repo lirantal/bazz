@@ -1,45 +1,22 @@
 # bazz
 
-@TODO
+📬 effortless remote push notifications for the CLI
 
 ## Installation
 
 ```bash
-yarn add <module-name>
+npm install -g bazz
 ```
 
 ## Usage
 
-@TODO
-
-## Tests
-
-Project tests:
-
-```bash
-yarn run test
 ```
-
-Project linting:
-
-```bash
-yarn run lint
-```
-
-## Coverage
-
-```bash
-yarn run test:coverage
+bazz sleep 3
 ```
 
 ## Contributing
 
-### Commit Guidelines
+Please consult the [CONTIRBUTING](https://github.com/lirantal/bazz/blob/master/CONTRIBUTING.md) for guidelines on contributing to this project
 
-The project uses the commitizen tool for standardizing changelog style commit
-messages so you should follow it as so:
-
-```bash
-git add .           # add files to staging
-yarn run commit      # use the wizard for the commit message
-```
+## Author
+Liran Tal <liran.tal@gmail.com>
