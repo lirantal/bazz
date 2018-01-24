@@ -41,62 +41,72 @@ class BazzClient {
    *
    * @return {object} registration details
    */
-  async registerForToken () {
+  registerForToken () {
     const url = `${this.bazzApiUrl}/tokens`
-    let response
 
-    try {
-      response = await axios.post(url)
-    } catch (error) {
-      const myError = new Error('Unable to register for token')
+    return axios
+      .post(url)
+      .then(response => {
+        const responseData = response.data.data
+        if (
+          !responseData.sub_id ||
+          !responseData.token ||
+          !responseData.nonce
+        ) {
+          throw new Error('No token information in registration response')
+        }
 
-      myError.response = {}
-      myError.response.message = error.message
-      myError.response.config = error.config
+        this.subscriptionPreferences.sub_id = responseData.sub_id
+        this.subscriptionPreferences.token = responseData.token
+        this.subscriptionPreferences.nonce = responseData.nonce
 
-      throw myError
-    }
+        return {
+          token: responseData.token,
+          sub_id: responseData.sub_id,
+          nonce: responseData.nonce,
+          subscribePageUrl: `${this.bazzUrl}/?sub_id=${responseData.sub_id}&nonce=${responseData.nonce}`
+        }
+      })
+      .catch(error => {
+        const myError = new Error('Unable to register for token')
 
-    const responseData = response.data.data
-    if (!responseData.sub_id || !responseData.token || !responseData.nonce) {
-      throw new Error('No token information in registration response')
-    }
+        myError.response = {}
+        myError.response.message = error.message
+        myError.response.config = error.config
 
-    this.subscriptionPreferences.sub_id = responseData.sub_id
-    this.subscriptionPreferences.token = responseData.token
-    this.subscriptionPreferences.nonce = responseData.nonce
-
-    return {
-      token: responseData.token,
-      sub_id: responseData.sub_id,
-      nonce: responseData.nonce,
-      subscribePageUrl: `${this.bazzUrl}/?sub_id=${responseData.sub_id}&nonce=${responseData.nonce}`
-    }
+        throw myError
+      })
   }
 
   /**
    * Wait until a subscription is found available for a given token, sub_id and nonce
    *
-   * @param {number} timeout
+   * @param {number} timeoutThreshold in seconds
    * @return {Promise}
    */
-  async waitForSubscription (timeout) {
-    let subscriptionStatus = false
-    let i = 0
-    while (i < timeout) {
-      await new Promise(resolve => setTimeout(() => resolve(), 1000))
+  waitForSubscription (timeoutThreshold) {
+    return new Promise(resolve => {
+      let counter = 1
+      const loopForSubscription = () => {
+        setTimeout(() => {
+          if (counter > timeoutThreshold) {
+            return resolve(false)
+          }
 
-      const subscriptionAvailable = await this.isSubscriptionAvailable()
+          this.isSubscriptionAvailable().then(subscriptionAvailable => {
+            if (subscriptionAvailable === true) {
+              return resolve(true)
+            } else {
+              return loopForSubscription()
+            }
+          })
 
-      if (subscriptionAvailable === true) {
-        subscriptionStatus = true
-        break
+          counter++
+        }, 1000)
       }
 
-      i++
-    }
-
-    return subscriptionStatus
+      loopForSubscription()
+    })
   }
 
   /**
@@ -104,12 +114,11 @@ class BazzClient {
    *
    * @return {boolean} status
    */
-  async isSubscriptionAvailable () {
+  isSubscriptionAvailable () {
     const url = `${this.bazzApiUrl}/subscriptions/pending`
 
-    let response
-    try {
-      response = await axios.get(url, {
+    return axios
+      .get(url, {
         headers: {
           Authorization: this.subscriptionPreferences.token
         },
@@ -118,14 +127,15 @@ class BazzClient {
           nonce: this.subscriptionPreferences.nonce
         }
       })
-    } catch (error) {
-      return false
-    }
+      .then(response => {
+        const responseData = response.data.data
 
-    const responseData = response.data.data
-
-    return !!(responseData.id === this.subscriptionPreferences.sub_id &&
-      responseData.valid === true)
+        return !!(responseData.id === this.subscriptionPreferences.sub_id &&
+          responseData.valid === true)
+      })
+      .catch(() => {
+        return false
+      })
   }
 
   /**
@@ -133,34 +143,34 @@ class BazzClient {
    *
    * @return {boolean} status
    */
-  async confirmSubscription () {
+  confirmSubscription () {
     const url = `${this.bazzApiUrl}/subscriptions/${this.subscriptionPreferences.sub_id}/confirmations`
 
-    let response
-    try {
-      response = await axios.post(
+    return axios
+      .post(
         url,
-        {
-          nonce: this.subscriptionPreferences.nonce
-        },
-        {
-          headers: {
-            Authorization: this.subscriptionPreferences.token
-          }
+      {
+        nonce: this.subscriptionPreferences.nonce
+      },
+      {
+        headers: {
+          Authorization: this.subscriptionPreferences.token
         }
+      }
       )
-    } catch (error) {
-      const myError = new Error('Unable to confirm subscription')
+      .then(response => {
+        const responseData = response.data.data
+        return !!(responseData.success === true)
+      })
+      .catch(error => {
+        const myError = new Error('Unable to confirm subscription')
 
-      myError.response = {}
-      myError.response.message = error.message
-      myError.response.config = error.config
+        myError.response = {}
+        myError.response.message = error.message
+        myError.response.config = error.config
 
-      throw myError
-    }
-
-    const responseData = response.data.data
-    return !!(responseData.success === true)
+        throw myError
+      })
   }
 
   /**
@@ -168,27 +178,27 @@ class BazzClient {
    *
    * @return {boolean} status
    */
-  async triggerNotification () {
+  triggerNotification () {
     const url = `${this.bazzApiUrl}/tokens/notifications`
-    let response
 
-    try {
-      response = await axios.post(url, null, {
+    return axios
+      .post(url, null, {
         headers: {
           Authorization: this.subscriptionPreferences.token
         }
       })
-    } catch (error) {
-      const myError = new Error('Unable to trigger notification')
+      .then(response => {
+        return !!(response.status === 200)
+      })
+      .catch(error => {
+        const myError = new Error('Unable to trigger notification')
 
-      myError.response = {}
-      myError.response.message = error.message
-      myError.response.config = error.config
+        myError.response = {}
+        myError.response.message = error.message
+        myError.response.config = error.config
 
-      throw myError
-    }
-
-    return !!(response.status === 200)
+        throw myError
+      })
   }
 }
 
