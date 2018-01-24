@@ -223,7 +223,7 @@ describe('Login without a token', () => {
     )
   })
 
-  it('Login without a token should register, but fail if no token in the response', async () => {
+  it('Login without a token should attempt to register, but fail if no token in the response', async () => {
     Configstore.prototype.get = jest.fn(token => null)
 
     nock(/.*/, {}).post('/tokens').reply(200, {
@@ -234,9 +234,7 @@ describe('Login without a token', () => {
     try {
       await bazzManager.login()
     } catch (error) {
-      expect(error.message).toEqual(
-        'No token information in registration response'
-      )
+      expect(error.message).toEqual('Unable to register for token')
     }
   })
 
