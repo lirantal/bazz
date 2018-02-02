@@ -48,13 +48,10 @@ Promise.resolve()
 function executeProgram () {
   debug('executing program')
 
-  const program = process.argv[2]
-  const args = process.argv.slice(3)
+  const command = process.argv.slice(2).join(' ')
+  debug('parsed command: %s', JSON.stringify(command))
 
-  debug('parsed command: %s', JSON.stringify(program))
-  debug('parsed command arguments: %s', JSON.stringify(args))
-
-  const child = childProcess.spawn(program, args, {
+  const child = childProcess.spawn(command, {
     stdio: 'inherit',
     shell: true
   })
