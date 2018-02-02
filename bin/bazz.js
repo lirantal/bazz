@@ -51,6 +51,10 @@ function executeProgram () {
   const command = process.argv.slice(2).join(' ')
   debug('parsed command: %s', JSON.stringify(command))
 
+  if (typeof command !== 'string' || !command) {
+    throw new Error('provide a program to run')
+  }
+
   const child = childProcess.spawn(command, {
     stdio: 'inherit',
     shell: true
