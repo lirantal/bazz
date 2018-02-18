@@ -52,11 +52,6 @@
     },
     "testPathIgnorePatterns": [
       "/__tests__/__fixtures__/*"
-    ],
-    "transformIgnorePatterns": [
-      "/node_modules/",
-      "/src/",
-      "/bin/"
     ]
   },
   "babel": {
