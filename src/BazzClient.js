@@ -1,6 +1,7 @@
 'use strict'
 
 const axios = require('axios')
+const debug = require('debug')('bazz')
 
 class BazzClient {
   /**
@@ -12,6 +13,9 @@ class BazzClient {
     this.bazzApiUrl = process.env.BAZZ_API_URL || 'https://bazz-api.enginx.com'
     this.bazzUrl = process.env.BAZZ_WEB_URL || 'https://bazz.enginx.com'
     this.subscriptionPreferences = {}
+
+    debug(`remote configuration API URL: ${this.bazzApiUrl}`)
+    debug(`remote configuration Website URL: ${this.bazzUrl}`)
 
     if (token) {
       this.subscriptionPreferences.token = token
@@ -116,6 +120,8 @@ class BazzClient {
    */
   isSubscriptionAvailable () {
     const url = `${this.bazzApiUrl}/subscriptions/pending`
+
+    debug(`pinging URL: ${url}`)
 
     return axios
       .get(url, {
