@@ -10,7 +10,7 @@ class BazzClient {
    * @param {object.token} token string
    */
   constructor ({ token } = {}) {
-    this.bazzApiUrl = process.env.BAZZ_API_URL || 'https://bazz-api.enginx.com'
+    this.bazzApiUrl = process.env.BAZZ_API_URL || 'https://bazz.enginx.com/api'
     this.bazzUrl = process.env.BAZZ_WEB_URL || 'https://bazz.enginx.com'
     this.subscriptionPreferences = {}
 
@@ -136,8 +136,10 @@ class BazzClient {
       .then(response => {
         const responseData = response.data.data
 
-        return !!(responseData.id === this.subscriptionPreferences.sub_id &&
-          responseData.valid === true)
+        return !!(
+          responseData.id === this.subscriptionPreferences.sub_id &&
+          responseData.valid === true
+        )
       })
       .catch(() => {
         return false
