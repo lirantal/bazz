@@ -1,0 +1,7 @@
+pull_request_rules:
+  - name: Automatic merge on Status Checks passing
+    conditions:
+      - "check-success ~= .*"
+    actions:
+      merge:
+        method: merge
