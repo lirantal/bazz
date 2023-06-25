@@ -1,9 +1,14 @@
 pull_request_rules:
-  - name: Automatic merge on Status Checks passing
+  - name: Automatic merge Snyk PRs on Status Checks passing
     conditions:
       - title~=^\[Snyk\]
       - head~=^snyk-fix
+      - base=main
       - "check-success ~= .*"
     actions:
       merge:
         method: squash
+      label:
+        add:
+          - "auto-merge"
+      rebase:
