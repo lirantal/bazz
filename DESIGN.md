@@ -21,7 +21,7 @@
 
 ### Push notification flow
 
-The following describes the push notification flow flow an end user will follow from running the bazz CLI (excluding bazz cli internal flow) and up until a push notification is made to the remote client.
+The following describes the push notification work flow an end user will follow from running the bazz CLI (excluding bazz cli internal flow) and up until a push notification is made to the remote client.
 
 ![bazz-sequence-diagram 2](https://user-images.githubusercontent.com/316371/35168363-5802fd46-fd61-11e7-81c2-53fea2685600.png)
 
