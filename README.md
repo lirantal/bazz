@@ -6,7 +6,6 @@
 [![npm](https://img.shields.io/npm/l/bazz.svg)](https://www.npmjs.com/package/bazz)
 [![codecov](https://codecov.io/gh/lirantal/bazz/branch/master/graph/badge.svg)](https://codecov.io/gh/lirantal/bazz)
 [![Build Status](https://travis-ci.org/lirantal/bazz.svg?branch=master)](https://travis-ci.org/lirantal/bazz)
-[![Known Vulnerabilities](https://snyk.io/test/github/lirantal/bazz/badge.svg)](https://snyk.io/test/github/lirantal/bazz)
 
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat)](https://github.com/semantic-release/semantic-release)
 [![Greenkeeper badge](https://badges.greenkeeper.io/lirantal/bazz.svg)](https://greenkeeper.io/)
