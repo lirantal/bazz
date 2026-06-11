@@ -1,8 +1,4 @@
 {
-  "publishConfig": {
-    "provenance": true,
-    "access": "public"
-  },
   "name": "bazz",
   "version": "0.0.0-development",
   "description": "📬 effortless remote push notifications for the CLI",
@@ -148,5 +144,9 @@
         }
       ]
     }
+  },
+  "publishConfig": {
+    "provenance": true,
+    "access": "public"
   }
 }
