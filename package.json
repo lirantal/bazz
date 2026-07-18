@@ -1,7 +1,7 @@
 {
   "name": "bazz",
   "version": "0.0.0-development",
-  "description": "📬 effortless remote push notifications for the CLI",
+  "description": "\ud83d\udcec effortless remote push notifications for the CLI",
   "bin": {
     "bazz": "./bin/bazz.js"
   },
@@ -15,13 +15,16 @@
     "docs": "yarn run docs:code && yarn run docs:api",
     "docs:api": "doxdox *.js --layout bootstrap --output docs/index.html",
     "docs:code": "docco *.js --output docs/code",
-    "semantic-release": "semantic-release"
+    "build": "echo \"No build step configured\"",
+    "lint:markdown": "markdownlint -c .github/.markdownlint.yml '**/**.md'",
+    "version": "changeset version",
+    "release": "changeset publish"
   },
   "author": "Liran Tal",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^1.6.8",
-    "configstore": "^6.0.0",
+    "axios": "^0.27.2",
+    "configstore": "^5.0.1",
     "debug": "^4.3.2",
     "ora": "^6.3.1",
     "qrcode-terminal": "^0.12.0"
@@ -41,8 +44,10 @@
     "nock": "^9.1.6",
     "opn-cli": "^3.1.0",
     "pre-git": "^3.16.0",
-    "semantic-release": "^11.0.2",
-    "standard": "^10.0.2"
+    "standard": "^10.0.2",
+    "@changesets/changelog-github": "^0.6.0",
+    "@changesets/cli": "^2.31.0",
+    "markdownlint-cli": "0.45.0"
   },
   "jest": {
     "testEnvironment": "node",
@@ -123,26 +128,6 @@
       "ecmaFeatures": {
         "impliedStrict": true
       }
-    }
-  },
-  "release": {
-    "branch": "master",
-    "analyzeCommits": {
-      "preset": "angular",
-      "releaseRules": [
-        {
-          "type": "docs",
-          "release": "patch"
-        },
-        {
-          "type": "refactor",
-          "release": "patch"
-        },
-        {
-          "type": "style",
-          "release": "patch"
-        }
-      ]
     }
   },
   "publishConfig": {
