@@ -23,10 +23,10 @@
   "author": "Liran Tal",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^0.27.2",
-    "configstore": "^5.0.1",
+    "axios": "^1.18.1",
+    "configstore": "^8.0.0",
     "debug": "^4.3.2",
-    "ora": "^6.3.1",
+    "ora": "^9.4.1",
     "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
