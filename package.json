@@ -33,7 +33,7 @@
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.5",
     "commitizen": "^2.9.5",
-    "cz-conventional-changelog": "^1.2.0",
+    "cz-conventional-changelog": "^3.3.0",
     "docco": "^0.9.2",
     "doxdox": "^2.0.1",
     "eslint": "^3.19.0",
