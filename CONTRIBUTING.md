@@ -67,6 +67,18 @@ This format drives changelog generation and release automation, so it matters mo
 
 If any of the above doesn't work on a fresh checkout, that's a bug, please open an issue.
 
+## Codecov uploads
+
+CI uploads this public repository's coverage without a Codecov upload token.
+This uses the `lirantal` account's public tokenless upload setting in Codecov
+(Settings → Global Upload Token). Upload errors fail CI.
+
+Tokenless uploads and GitHub status publishing are separate: the Codecov
+GitHub App needs access to this repository to post coverage checks and PR
+comments. Keep that app access when using tokenless uploads.
+See [Codecov upload authentication](https://docs.codecov.com/docs/codecov-tokens)
+and [GitHub integration](https://docs.codecov.com/docs/team-bot).
+
 ## For automated agents
 
 If you are an AI coding agent or automated bot opening a PR, please add 🤖🤖🤖 to the end of the PR title. This helps maintainers triage agent-authored contributions and is a baseline expectation for this repo — PRs without the marker that turn out to be automated may be closed without review.
