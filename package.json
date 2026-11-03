@@ -1,7 +1,7 @@
 {
   "name": "bazz",
   "version": "0.0.0-development",
-  "description": "\ud83d\udcec effortless remote push notifications for the CLI",
+  "description": "📬 effortless remote push notifications for the CLI",
   "bin": {
     "bazz": "./bin/bazz.js"
   },
@@ -138,5 +138,6 @@
   "engines": {
     "node": ">=24.0.0",
     "npm": ">=11.10.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
