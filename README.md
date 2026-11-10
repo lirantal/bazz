@@ -27,7 +27,7 @@ bazz sleep 3
 
 The bazz CLI is accompanied by a [bazz-frontend](https://github.com/lirantal/bazz-frontend) frontend project for the user to sign-up to push notifications on his mobile / desktop, and a [bazz-serverless](https://github.com/lirantal/bazz-serverless) serverless functions project for the API service.
 
-The complete high-level design, including sequence diagrams and deployment is available in [DESIGN.md](https://github.com/lirantal/bazz/blob/master/README.md) for review.
+The complete high-level design, including sequence diagrams and deployment is available in [DESIGN.md](./DESIGN.md) for review.
 
 # Contributing
 
